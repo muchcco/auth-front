@@ -1,7 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { LoginComponent } from './components/login/login.component'; // Ajusta la ruta según sea necesario
+import { AuthGuard } from './_guards/auth.guard';
 
-const routes: Routes = [];
+const routes: Routes = [
+  { path: 'login', component: LoginComponent },
+  { 
+    path: 'reports', 
+    loadChildren: () => import('./modules/reports/reports.module').then(m => m.ReportsModule), 
+    canActivate: [AuthGuard] 
+  },
+  { path: 'logout', redirectTo: '/login', pathMatch: 'full' }, // Ruta para cerrar sesión
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '**', redirectTo: '/login' }
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

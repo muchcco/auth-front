@@ -1,0 +1,18 @@
+.sidebar{
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 18%;
+    overflow-y: auto;
+    background-color: #f8f9fa; /* Color de fondo opcional */
+}
+
+.bg-head{
+    background-color: #2352a2 !important;
+}
+
+
+
+.bi{
+    padding-bottom: .23em;
+}

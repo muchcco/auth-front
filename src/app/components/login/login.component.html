@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="card">
+    <img src="assets/img/mac-general.png" alt="MAC Logo" class="logo">
+    <h1>Ingrese al sistema</h1>
+    <form (submit)="login()">
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">
+          <i class="fas fa-user"></i>
+        </span>
+        <input type="text" id="name" [(ngModel)]="name" name="name" required (change)="onNameChange()" placeholder="Nombre de Usuario" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+      </div> 
+
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">
+          <i class="fas fa-lock"></i>
+        </span>
+        <input type="password" id="password" [(ngModel)]="password" name="password" placeholder="Contraseña" class="form-control" aria-label="Password" aria-describedby="basic-addon1">
+      </div>
+
+      <div class="mb-3" *ngIf="showProfileSelect">
+        <label for="profile" class="form-label label-text">Seleccionar Perfil</label>
+        <select id="profile" [(ngModel)]="selectedProfileId" name="profile" required class="form-select" aria-label="Default select example">
+          <option value="" selected>-- SELECCIONE UNA VISTA --</option>
+          <option *ngFor="let profile of profiles" [value]="profile.id">{{ profile.description }}</option>
+        </select>
+      </div>
+
+      <div *ngIf="errorMessage" class="error">
+        <div class="alert alert-danger" role="alert">
+          {{ errorMessage }}
+        </div>          
+      </div>
+
+      <div class="terms">
+        <input type="checkbox" id="terms" required>
+        <label for="terms">Aceptar los términos y condiciones</label>
+      </div>
+
+      <button id="login-btn" type="submit" [disabled]="isLoading">
+        INGRESAR
+        <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      </button>
+
+      <p>No tiene una cuenta? <a href="#">Registrarse</a></p>
+
+      <div class="info">
+        Importante: Si usted cuenta con Casilla Electrónica del JNE, podrá ingresar a nuestra plataforma con el usuario (DNI) y contraseña generados, sin necesidad de registrarse como nuevo usuario, caso contrario, seleccione la opción: <a href="#">Registrarse</a>
+      </div>
+    </form>
+  </div>
+</div>
