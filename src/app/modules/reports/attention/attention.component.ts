@@ -4,6 +4,8 @@ import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 import { addImage } from 'xlsx-image';
+import { LoadingService } from './services/loading.service';
+import { NgxSpinnerService } from "ngx-spinner";
 
 
 
@@ -28,7 +30,11 @@ export class AttentionComponent implements OnInit {
   page: number = 1;
   pageSize: number = 20;
 
-  constructor(private attentionService: AttentionService) {}
+  isLoading: boolean = false;
+  loadPercentage: number = 0;
+  loadingPercentage: number = 0;
+
+  constructor(private attentionService: AttentionService, public loadingService: LoadingService, private spinner: NgxSpinnerService) {}
 
   ngOnInit(): void {
     this.loadFormDetails();
@@ -62,15 +68,38 @@ export class AttentionComponent implements OnInit {
         title: 'Advertencia',
         text: 'Debe seleccionar una entidad antes de buscar.'
       });
+      return;
     }
+
+    this.loadingService.show();
+    this.spinner.show();
+
+    const totalSteps = 100; // Número total de pasos para la carga
+    let currentStep = 0;
+
+    const interval = setInterval(() => {
+      if (currentStep < totalSteps) {
+        currentStep++;
+        this.loadingPercentage = currentStep;
+      } else {
+        clearInterval(interval);
+      }
+    }, 50); // Intervalo de tiempo para actualizar el porcentaje de carga
 
     this.attentionService.getAttentionData(this.fecha_inicio, this.fecha_fin, this.nom_mac, this.servicio)
       .subscribe(data => {
         this.resultados = data.data;
-        console.log(this.resultados);
+        this.loadingService.hide();
+        this.spinner.hide();
+        clearInterval(interval);
+        this.loadingPercentage = 0;
       },
       (error) => {
         console.error('Error al buscar atenciones:', error);
+        this.loadingService.hide();
+        this.spinner.hide();
+        clearInterval(interval);
+        this.loadingPercentage = 0;
       });
   }
 

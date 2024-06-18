@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { SharedComponent } from './shared/shared.component';
 import { ReportsModule } from './modules/reports/reports.module';
 import { AuthInterceptor } from './_helpers/http.interceptor';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // import { DashboardComponent } from './modules/reports/dashboard/dashboard.component'; // Importa tu módulo de enrutamiento
 
 @NgModule({
@@ -19,11 +20,12 @@ import { AuthInterceptor } from './_helpers/http.interceptor';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
     AppRoutingModule,  // Asegúrate de que AppRoutingModule esté incluido aquí
     RouterModule,
-    ReportsModule
+    ReportsModule,
   ],
   providers: [
     {

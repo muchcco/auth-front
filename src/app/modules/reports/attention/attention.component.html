@@ -1,3 +1,13 @@
+<ngx-spinner
+  bdColor="rgba(51, 51, 51, 0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-atom"
+  [fullScreen]="true"  
+>
+  <p class="spli-cargando">{{ loadingPercentage }}% Cargando...</p>
+</ngx-spinner>
+
 <div class="col-12">
     <div class="card">
       <div class="card-header">
@@ -38,7 +48,7 @@
         </div>
       </div>
       <div class="card-footer">
-        <button class="btn btn-primary mx-2" (click)="buscar()">Buscar</button>
+        <button class="btn btn-primary mx-2" (click)="buscar()" [disabled]="loadingService.loading$ | async">Buscar</button>
         <button class="btn btn-secondary " (click)="limpiar()">Limpiar</button>
         <button class="btn btn-success mx-2" (click)="exportToExcel()">Exportar</button>
       </div>

@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class AttentionService {
 
-  private apiUrl = 'http://127.0.0.1:8000/api';
+  private apiUrl = 'http://190.187.182.55:8081/login/auth-backend/public/api';
 
   constructor(private http: HttpClient) { }
 

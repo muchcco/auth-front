@@ -1,5 +1,5 @@
 // attention.module.ts
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { AttentionComponent } from './attention.component';
@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 
 const routes: Routes = [
@@ -21,8 +22,9 @@ const routes: Routes = [
     FormsModule,
     HttpClientModule,
     NgxPaginationModule,
-    NgSelectModule
-    
-  ]
+    NgSelectModule,
+    NgxSpinnerModule    
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AttentionModule { }
