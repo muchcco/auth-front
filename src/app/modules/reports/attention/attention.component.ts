@@ -89,6 +89,7 @@ export class AttentionComponent implements OnInit {
     this.attentionService.getAttentionData(this.fecha_inicio, this.fecha_fin, this.nom_mac, this.servicio)
       .subscribe(data => {
         this.resultados = data.data;
+        console.log(this.resultados);
         this.loadingService.hide();
         this.spinner.hide();
         clearInterval(interval);
@@ -100,6 +101,20 @@ export class AttentionComponent implements OnInit {
         this.spinner.hide();
         clearInterval(interval);
         this.loadingPercentage = 0;
+
+        if (error.status === 500) {
+            Swal.fire({
+                icon: 'info',
+                title: 'Tamaño de búsqueda',
+                text: 'El tamaño de carga de la búsqueda es demasiado grande. Intente con un rango de fechas más pequeño.'
+            });
+        } else {
+            Swal.fire({
+                icon: 'info',
+                title: 'Tamaño de búsqueda',
+                text: 'El tamaño de carga de la búsqueda es demasiado grande. Intente con un rango de fechas más pequeño.'
+            });
+        }
       });
   }
 
@@ -112,6 +127,22 @@ export class AttentionComponent implements OnInit {
   }
 
   exportToExcel(): void {
+
+    this.loadingService.show();
+    this.spinner.show();
+
+    const totalSteps = 100; // Número total de pasos para la carga
+    let currentStep = 0;
+
+    const interval = setInterval(() => {
+      if (currentStep < totalSteps) {
+        currentStep++;
+        this.loadingPercentage = currentStep;
+      } else {
+        clearInterval(interval);
+      }
+    }, 50); // Intervalo de tiempo para actualizar el porcentaje de carga
+
     const workbook = XLSX.utils.book_new();
     const worksheet = XLSX.utils.json_to_sheet(this.resultados, { header: ['Nom_mac', 'nom_ent', 'Hra_llg'], skipHeader: true });
 
@@ -166,5 +197,8 @@ export class AttentionComponent implements OnInit {
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
     const blob: Blob = new Blob([excelBuffer], { type: 'application/octet-stream' });
     saveAs(blob, 'reporte_atencion.xlsx');
+
+    this.loadingService.hide();
+    this.spinner.hide();
   }
 }
