@@ -7,3 +7,7 @@
 .bg-head{
     background-color: #2352a2 !important;
 }
+
+.especialista-cam{
+    text-transform: lowercase;
+}

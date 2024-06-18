@@ -3,7 +3,6 @@ import { AttentionService } from './services/attention.service';
 import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
-import { addImage } from 'xlsx-image';
 import { LoadingService } from './services/loading.service';
 import { NgxSpinnerService } from "ngx-spinner";
 
@@ -94,6 +93,14 @@ export class AttentionComponent implements OnInit {
         this.spinner.hide();
         clearInterval(interval);
         this.loadingPercentage = 0;
+
+        if(this.resultados.length === 0){
+          Swal.fire({
+            icon: 'warning',
+            title: 'Sin resultados',
+            text: 'No se encontrarón resultados para la búsqueda.'
+        });
+        }
       },
       (error) => {
         console.error('Error al buscar atenciones:', error);
@@ -142,6 +149,7 @@ export class AttentionComponent implements OnInit {
         clearInterval(interval);
       }
     }, 50); // Intervalo de tiempo para actualizar el porcentaje de carga
+
 
     const workbook = XLSX.utils.book_new();
     const worksheet = XLSX.utils.json_to_sheet(this.resultados, { header: ['Nom_mac', 'nom_ent', 'Hra_llg'], skipHeader: true });

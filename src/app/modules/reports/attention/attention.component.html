@@ -50,7 +50,7 @@
       <div class="card-footer">
         <button class="btn btn-primary mx-2" (click)="buscar()" [disabled]="loadingService.loading$ | async">Buscar</button>
         <button class="btn btn-secondary " (click)="limpiar()">Limpiar</button>
-        <button class="btn btn-success mx-2" (click)="exportToExcel()">Exportar</button>
+        <button class="btn btn-success mx-2" (click)="exportToExcel()" [disabled]="loadingService.loading$ | async">Exportar</button>
       </div>
     </div>
   </div>
