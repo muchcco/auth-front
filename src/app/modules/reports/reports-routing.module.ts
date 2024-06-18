@@ -9,7 +9,7 @@ const routes: Routes = [
     children: [
       { path: 'dashboard', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule) },
       { path: 'attention', loadChildren: () => import('./attention/attention.module').then(m => m.AttentionModule) },
-      // { path: 'status', loadChildren: () => import('./status/status.module').then(m => m.StatusModule) },
+      { path: 'status', loadChildren: () => import('./status/status.module').then(m => m.StatusModule) },
       // { path: 'report-all', loadChildren: () => import('./report-all/report-all.module').then(m => m.ReportAllModule) },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
     ]
